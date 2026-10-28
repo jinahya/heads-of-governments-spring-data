@@ -76,7 +76,7 @@
       (upstream: jakarta.jakartaee-bom 11.0.0). Boot 3.x manages 3.1. Do not downgrade.
       https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html
       -->
-    <version.org.springframework.boot>4.1.1</version.org.springframework.boot>
+    <version.org.springframework.boot>4.1.2</version.org.springframework.boot>
 
     <!-- The sibling, at the unified version: `./mvnw -DskipTests install` it to pick up a change there. -->
     <version.heads-of-governments-persistence>0.6.10-SNAPSHOT</version.heads-of-governments-persistence>
@@ -86,8 +86,19 @@
     <version.org.projectlombok>1.18.48</version.org.projectlombok>
     <!-- https://central.sonatype.com/artifact/org.xerial/sqlite-jdbc/versions -->
     <version.org.xerial.sqlite-jdbc>3.53.4.0</version.org.xerial.sqlite-jdbc>
+    <!--
+      The test stack at the baseline of PROJECTS_VERSIONS.asciidoc, over the one Boot's BOM manages.
+      https://central.sonatype.com/artifact/org.junit/junit-bom/versions
+      https://central.sonatype.com/artifact/org.mockito/mockito-bom/versions
+      https://central.sonatype.com/artifact/org.assertj/assertj-core/versions
+      https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions
+      -->
+    <version.org.junit>6.1.3</version.org.junit>
+    <version.org.mockito>5.24.0</version.org.mockito>
+    <version.org.assertj>4.0.0-M1</version.org.assertj>
+    <version.ch.qos.logback>1.6.5</version.ch.qos.logback>
     <!-- https://central.sonatype.com/artifact/org.jspecify/jspecify/versions -->
-    <version.org.jspecify>1.0.0</version.org.jspecify>
+    <version.org.jspecify>1.0.1</version.org.jspecify>
   </properties>
 
   <dependencyManagement>
@@ -96,12 +107,44 @@
         Every Spring, Boot and Hibernate version comes from here, so dependencies on them carry no <version>. A direct
         entry below beats an imported one, which is how the pins that follow it work.
         -->
+      <!-- An earlier import beats a later one: JUnit's and Mockito's BOMs, first, over Boot's. -->
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${version.org.junit}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-bom</artifactId>
+        <version>${version.org.mockito}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${version.org.springframework.boot}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+
+      <!-- At the baseline, over Boot's. -->
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${version.org.assertj}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${version.ch.qos.logback}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${version.ch.qos.logback}</version>
       </dependency>
 
       <!-- The upstream entity jar. -->
