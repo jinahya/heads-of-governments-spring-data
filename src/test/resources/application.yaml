@@ -1,0 +1,18 @@
+#
+# Test configuration for heads-of-governments-spring-data: heads_of_governments.sqlite3, a test resource copied from
+# heads-of-governments-persistence's db/, opened read-only. No persistence.xml; the entities are scanned.
+#
+spring:
+  datasource:
+    # A resource on the test class path. open_mode=1 opens it read-only, and
+    # jdbc.explicit_readonly lets Spring's read-only transactions call Connection#setReadOnly, which the driver refuses
+    # otherwise once the connection is open.
+    url: jdbc:sqlite::resource:heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    # Hibernate's SQLiteDialect, from hibernate-community-dialects.
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      # The database is the fixture; nothing here may touch its schema.
+      ddl-auto: none
+    open-in-view: false
