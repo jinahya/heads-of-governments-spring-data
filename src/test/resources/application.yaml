@@ -1,6 +1,6 @@
 #
-# Test configuration for heads-of-governments-spring-data: heads_of_governments.sqlite3, a test resource copied from
-# heads-of-governments-persistence's db/, opened read-only. No persistence.xml; the entities are scanned.
+# Test configuration for heads-of-governments-spring-data: heads_of_governments.sqlite3, a class path resource of the
+# heads-of-governments-persistence artifact, opened read-only. No persistence.xml; the entities are scanned.
 #
 spring:
   datasource:

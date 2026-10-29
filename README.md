@@ -5,8 +5,8 @@ Spring Data JPA repositories, `OfficeRepository` and `HeadRepository`, for the e
 
 ## The database
 
-`src/test/resources/heads_of_governments.sqlite3`, a copy of heads-of-governments-persistence's
-`db/heads_of_governments.sqlite3`, opened read-only. The tests open it from the class path
+`heads_of_governments.sqlite3`, which the heads-of-governments-persistence artifact carries at the root of its class
+path, opened read-only. The tests open it from the class path
 ([application.yaml](src/test/resources/application.yaml)):
 
 ```
@@ -22,13 +22,13 @@ A relative path resolves against IntelliJ's own working directory, not the proje
 instead. With this module opened as the project:
 
 ```
-jdbc:sqlite:$PROJECT_DIR$/src/test/resources/heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
+jdbc:sqlite:$PROJECT_DIR$/../heads-of-governments-persistence/src/main/resources/heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
 ```
 
 With the book repository opened as the project:
 
 ```
-jdbc:sqlite:$PROJECT_DIR$/projects/heads-of-governments-spring-data/src/test/resources/heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
+jdbc:sqlite:$PROJECT_DIR$/projects/heads-of-governments-persistence/src/main/resources/heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
 ```
 
 The **Read-only** checkbox on the data source's **Options** tab does the same on IntelliJ's side.
