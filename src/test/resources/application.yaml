@@ -16,3 +16,13 @@ spring:
       # The database is the fixture; nothing here may touch its schema.
       ddl-auto: none
     open-in-view: false
+    properties:
+      # The SQL, as org.hibernate.SQL logs it, on multiple lines.
+      hibernate.format_sql: true
+
+logging:
+  level:
+    com.github.jinahya: debug
+    # The SQL Hibernate runs, and the values bound to its parameters.
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
