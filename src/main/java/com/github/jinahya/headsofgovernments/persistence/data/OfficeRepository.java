@@ -1,46 +1,15 @@
 package com.github.jinahya.headsofgovernments.persistence.data;
 
 import com.github.jinahya.headsofgovernments.persistence.Office;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.repository.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A repository of {@link Office}, whose identifier is its {@code country}.
  */
+@org.springframework.stereotype.Repository
 public interface OfficeRepository
-        extends Repository<Office, String>,
-                JpaSpecificationExecutor<Office> {
-
-    /**
-     * Finds all offices, in the order the specified sort sorts by.
-     *
-     * @param sort the sort of the offices.
-     * @return a list of all offices.
-     */
-    List<Office> findAll(Sort sort);
-
-    /**
-     * Finds a page of all offices, in the order the specified pageable sorts by.
-     *
-     * @param pageable the page to find, and its sort; make the sort total, e.g., ending with
-     *                 {@code country}, for the pages to be.
-     * @return the page of all offices.
-     */
-    Page<Office> findAll(Pageable pageable);
-
-    /**
-     * Finds the office of the specified country.
-     *
-     * @param country the country.
-     * @return an optional of the office of {@code country}; empty if none.
-     */
-    Optional<Office> findByCountry(String country);
+        extends _Repository<Office, String> {
 
     /**
      * Finds all offices, ordered by their countries.
@@ -48,4 +17,24 @@ public interface OfficeRepository
      * @return a list of all offices.
      */
     List<Office> findAllByOrderByCountryAsc();
+
+    /**
+     * Finds all offices, ordered by their countries, each with its heads fetched in the same query.
+     *
+     * @return a list of all offices, with their heads.
+     */
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = "heads")
+    List<Office> findAllFetchHeadsByOrderByCountryAsc();
+
+    /**
+     * Finds a page of the offices of the specified head kind, ordered by their countries.
+     *
+     * @param headKind the head kind.
+     * @param pageable the page to find; the countries, which are unique, already make the order
+     *                 total, so its sort, if any, sorts only after them.
+     * @return the page of the offices of {@code headKind}.
+     */
+    org.springframework.data.domain.Page<Office> findAllByHeadKindOrderByCountryAsc(
+            Office.HeadKind headKind,
+            org.springframework.data.domain.Pageable pageable);
 }

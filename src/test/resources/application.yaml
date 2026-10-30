@@ -7,22 +7,22 @@ spring:
     # A resource on the test class path. open_mode=1 opens it read-only, and
     # jdbc.explicit_readonly lets Spring's read-only transactions call Connection#setReadOnly, which the driver refuses
     # otherwise once the connection is open.
+    # default: (unset)
     url: jdbc:sqlite::resource:heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
-    driver-class-name: org.sqlite.JDBC
+    driver-class-name: org.sqlite.JDBC # default: (unset); detected from the url
   jpa:
     # Hibernate's SQLiteDialect, from hibernate-community-dialects.
-    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    database-platform: org.hibernate.community.dialect.SQLiteDialect # default: (unset); detected
     hibernate:
       # The database is the fixture; nothing here may touch its schema.
-      ddl-auto: none
-    open-in-view: false
+      ddl-auto: none # default: none; create-drop for an embedded database (H2, HSQLDB, Derby)
     properties:
       # The SQL, as org.hibernate.SQL logs it, on multiple lines.
-      hibernate.format_sql: true
+      hibernate.format_sql: true # default: false
 
 logging:
   level:
-    com.github.jinahya: debug
+    com.github.jinahya: debug # default: (unset); the root's, info
     # The SQL Hibernate runs, and the values bound to its parameters.
-    org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.SQL: debug # default: (unset); the root's, info
+    org.hibernate.orm.jdbc.bind: trace # default: (unset); the root's, info
