@@ -1,7 +1,7 @@
 # heads-of-governments-spring-data
 
 Spring Data JPA repositories, `OfficeRepository` and `HeadRepository`, for the entities of
-[heads-of-governments-persistence](../heads-of-governments-persistence), tested with `@SpringBootTest`.
+[heads-of-governments-persistence](../../heads-of-governments-persistence), tested with `@SpringBootTest`.
 
 ## The database
 
@@ -22,7 +22,7 @@ A relative path resolves against IntelliJ's own working directory, not the proje
 instead. With this module opened as the project:
 
 ```
-jdbc:sqlite:$PROJECT_DIR$/../heads-of-governments-persistence/src/main/resources/heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
+jdbc:sqlite:$PROJECT_DIR$/../../heads-of-governments-persistence/src/main/resources/heads_of_governments.sqlite3?open_mode=1&jdbc.explicit_readonly=true
 ```
 
 With the book repository opened as the project:
